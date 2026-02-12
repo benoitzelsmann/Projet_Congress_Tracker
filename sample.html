@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Sample | Capitol Quant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #0f172a; color: #f8fafc; font-family: 'Inter', sans-serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        tr:nth-child(even) { background-color: rgba(30, 41, 59, 0.5); }
+        tr:hover { background-color: rgba(59, 130, 246, 0.1); transition: background-color 0.2s; }
+        .buy-badge { background-color: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .sell-badge { background-color: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .pdf-link:hover { color: #38bdf8; transform: scale(1.1); }
+
+        /* Styles importés de l'index pour l'image */
+        .std-image-container {
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid rgba(51, 65, 85, 0.6);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            background-color: #1e293b;
+            transition: border-color 0.3s ease;
+        }
+        .std-image-container:hover { border-color: #60a5fa; }
+        .std-image-caption {
+            background-color: #0f172a;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            padding: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            border-top: 1px solid rgba(51, 65, 85, 0.6);
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+<body class="p-6 md:p-12 min-h-screen">
+
+    <div class="max-w-[1400px] mx-auto">
+        
+        <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+            <div>
+                <a href="index.html" class="text-blue-400 hover:text-blue-300 text-sm mb-2 inline-flex items-center gap-2 transition-colors">
+                    <i class="fas fa-arrow-left"></i> Back to Product Page
+                </a>
+                <h1 class="text-3xl font-bold mt-2">Live Dataset Preview</h1>
+                <p class="text-slate-400 mt-2">
+                    Displaying 20 most recent records from <code class="bg-slate-800 px-1.5 py-0.5 rounded text-sm font-mono text-blue-200">all_transactions.csv</code>
+                </p>
+            </div>
+            <div class="mt-6 md:mt-0 flex gap-4">
+                <div class="text-right hidden md:block mr-4">
+                    <div class="text-sm font-bold text-slate-200">Last Update</div>
+                    <div class="text-xs text-slate-500 font-mono">2026-02-12</div>
+                </div>
+                <a href="YOUR_LEMON_SQUEEZY_LINK" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-lg font-bold shadow-lg shadow-blue-900/20 transition-all hover:translate-y-[-2px]">
+                    Download Full Archive
+                </a>
+            </div>
+        </div>
+
+        <div class="mb-6 p-4 bg-blue-900/10 border border-blue-500/20 rounded-lg flex items-start gap-4">
+            <i class="fas fa-info-circle text-blue-400 mt-1"></i>
+            <div class="text-sm text-slate-300">
+                <strong class="text-blue-200">Partial Column View:</strong> 
+                This web preview displays only 8 columns for readability. The downloadable dataset contains <strong>17 columns</strong> including detailed metadata:
+                <div class="mt-2 flex flex-wrap gap-2 font-mono text-xs text-slate-400">
+                    <span class="bg-slate-800 px-2 py-1 rounded border border-slate-700">politician_id</span>
+                    <span class="bg-slate-800 px-2 py-1 rounded border border-slate-700">tx_type_full</span>
+                    <span class="bg-slate-800 px-2 py-1 rounded border border-slate-700">owner</span>
+                    <span class="bg-slate-800 px-2 py-1 rounded border border-slate-700">date_filing</span>
+                    <span class="bg-slate-800 px-2 py-1 rounded border border-slate-700">amount_min</span>
+                    <span class="bg-slate-800 px-2 py-1 rounded border border-slate-700">amount_max</span>
+                    <span class="bg-slate-800 px-2 py-1 rounded border border-slate-700 text-emerald-400">estimated_value_usd</span>
+                    <span class="bg-slate-800 px-2 py-1 rounded border border-slate-700">filing_id</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-700 rounded-xl overflow-hidden shadow-2xl">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm whitespace-nowrap">
+                    <thead>
+                        <tr class="bg-slate-800 border-b border-slate-700 text-slate-300 uppercase text-xs tracking-wider">
+                            <th class="p-4 font-semibold">Date</th>
+                            <th class="p-4 font-semibold">Politician</th>
+                            <th class="p-4 font-semibold">Chamber</th>
+                            <th class="p-4 font-semibold">Ticker</th>
+                            <th class="p-4 font-semibold">Asset Name</th>
+                            <th class="p-4 font-semibold text-center">Type</th>
+                            <th class="p-4 font-semibold text-right">Amount (Range)</th>
+                            <th class="p-4 font-semibold text-center">Source</th>
+                        </tr>
+                    </thead>
+                    <tbody class="font-mono text-xs md:text-sm text-slate-300">
+                        
+                        <tr class="border-b border-slate-800/50">
+                            <td class="p-4 text-slate-400">2025-12-16</td>
+                            <td class="p-4 font-sans font-semibold text-white">Moore, Tim</td>
+                            <td class="p-4"><span class="text-xs bg-slate-800 px-2 py-1 rounded border border-slate-700">House</span></td>
+                            <td class="p-4"><span class="text-yellow-400 font-bold">CBRL</span></td>
+                            <td class="p-4 text-slate-300 truncate max-w-xs" title="Cracker Barrel Old Country Store, Inc.">Cracker Barrel Old Country Store...</td>
+                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-xs font-bold buy-badge">Purchase</span></td>
+                            <td class="p-4 text-right font-sans">$15k - $50k</td>
+                            <td class="p-4 text-center"><a href="https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2025/20033670.pdf" target="_blank" class="pdf-link text-slate-500 transition-all"><i class="fas fa-file-pdf"></i></a></td>
+                        </tr>
+
+                        <tr class="border-b border-slate-800/50">
+                            <td class="p-4 text-slate-400">2025-12-15</td>
+                            <td class="p-4 font-sans font-semibold text-white">Morrison, Kelly Louise</td>
+                            <td class="p-4"><span class="text-xs bg-slate-800 px-2 py-1 rounded border border-slate-700">House</span></td>
+                            <td class="p-4"><span class="text-slate-600 italic">--</span></td>
+                            <td class="p-4 text-slate-300">Benable</td>
+                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-xs font-bold buy-badge">Purchase</span></td>
+                            <td class="p-4 text-right font-sans">$15k - $50k</td>
+                            <td class="p-4 text-center"><a href="https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2025/20033651.pdf" target="_blank" class="pdf-link text-slate-500 transition-all"><i class="fas fa-file-pdf"></i></a></td>
+                        </tr>
+
+                        <tr class="border-b border-slate-800/50">
+                            <td class="p-4 text-slate-400">2025-12-10</td>
+                            <td class="p-4 font-sans font-semibold text-white">Moore, Tim</td>
+                            <td class="p-4"><span class="text-xs bg-slate-800 px-2 py-1 rounded border border-slate-700">House</span></td>
+                            <td class="p-4"><span class="text-yellow-400 font-bold">CBRL</span></td>
+                            <td class="p-4 text-slate-300 truncate max-w-xs">Cracker Barrel Old Country Store...</td>
+                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-xs font-bold sell-badge">Sale</span></td>
+                            <td class="p-4 text-right font-sans">$50k - $100k</td>
+                            <td class="p-4 text-center"><a href="https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2025/20033670.pdf" target="_blank" class="pdf-link text-slate-500 transition-all"><i class="fas fa-file-pdf"></i></a></td>
+                        </tr>
+
+                        <tr class="border-b border-slate-800/50">
+                            <td class="p-4 text-slate-400">2025-12-10</td>
+                            <td class="p-4 font-sans font-semibold text-white">Moore, Tim</td>
+                            <td class="p-4"><span class="text-xs bg-slate-800 px-2 py-1 rounded border border-slate-700">House</span></td>
+                            <td class="p-4"><span class="text-yellow-400 font-bold">VZ</span></td>
+                            <td class="p-4 text-slate-300">Verizon Communications Inc.</td>
+                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-xs font-bold buy-badge">Purchase</span></td>
+                            <td class="p-4 text-right font-sans">$15k - $50k</td>
+                            <td class="p-4 text-center"><a href="https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2025/20033670.pdf" target="_blank" class="pdf-link text-slate-500 transition-all"><i class="fas fa-file-pdf"></i></a></td>
+                        </tr>
+
+                        <tr class="border-b border-slate-800/50">
+                            <td class="p-4 text-slate-400">2025-12-09</td>
+                            <td class="p-4 font-sans font-semibold text-white">Moore, Tim</td>
+                            <td class="p-4"><span class="text-xs bg-slate-800 px-2 py-1 rounded border border-slate-700">House</span></td>
+                            <td class="p-4"><span class="text-yellow-400 font-bold">HOG</span></td>
+                            <td class="p-4 text-slate-300">Harley-Davidson, Inc.</td>
+                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-xs font-bold buy-badge">Purchase</span></td>
+                            <td class="p-4 text-right font-sans">$15k - $50k</td>
+                            <td class="p-4 text-center"><a href="https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2025/20033670.pdf" target="_blank" class="pdf-link text-slate-500 transition-all"><i class="fas fa-file-pdf"></i></a></td>
+                        </tr>
+
+                        <tr class="border-b border-slate-800/50">
+                            <td class="p-4 text-slate-400">2025-12-04</td>
+                            <td class="p-4 font-sans font-semibold text-white">Bresnahan, Rob</td>
+                            <td class="p-4"><span class="text-xs bg-slate-800 px-2 py-1 rounded border border-slate-700">House</span></td>
+                            <td class="p-4"><span class="text-blue-300 text-xs">BOND</span></td>
+                            <td class="p-4 text-slate-300 truncate max-w-xs">PA State Turnpike Commission Bond</td>
+                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-xs font-bold buy-badge">Purchase</span></td>
+                            <td class="p-4 text-right font-sans">$50k - $100k</td>
+                            <td class="p-4 text-center"><a href="https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2025/20033574.pdf" target="_blank" class="pdf-link text-slate-500 transition-all"><i class="fas fa-file-pdf"></i></a></td>
+                        </tr>
+
+                        <tr class="border-b border-slate-800/50">
+                            <td class="p-4 text-slate-400">2025-12-03</td>
+                            <td class="p-4 font-sans font-semibold text-white">Moore, Tim</td>
+                            <td class="p-4"><span class="text-xs bg-slate-800 px-2 py-1 rounded border border-slate-700">House</span></td>
+                            <td class="p-4"><span class="text-yellow-400 font-bold">HY</span></td>
+                            <td class="p-4 text-slate-300">Hyster-Yale, Inc.</td>
+                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-xs font-bold sell-badge">Sale</span></td>
+                            <td class="p-4 text-right font-sans">$100k - $250k</td>
+                            <td class="p-4 text-center"><a href="https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2025/20033670.pdf" target="_blank" class="pdf-link text-slate-500 transition-all"><i class="fas fa-file-pdf"></i></a></td>
+                        </tr>
+
+                        <tr class="border-b border-slate-800/50">
+                            <td class="p-4 text-slate-400">2025-12-01</td>
+                            <td class="p-4 font-sans font-semibold text-white">Cisneros, Gilbert</td>
+                            <td class="p-4"><span class="text-xs bg-slate-800 px-2 py-1 rounded border border-slate-700">House</span></td>
+                            <td class="p-4"><span class="text-blue-300 text-xs">BOND</span></td>
+                            <td class="p-4 text-slate-300 truncate max-w-xs">Bank of America Southeast Energy Auth...</td>
+                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-xs font-bold buy-badge">Purchase</span></td>
+                            <td class="p-4 text-right font-sans">$250k - $500k</td>
+                            <td class="p-4 text-center"><a href="https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2025/20033619.pdf" target="_blank" class="pdf-link text-slate-500 transition-all"><i class="fas fa-file-pdf"></i></a></td>
+                        </tr>
+
+                        <tr class="border-b border-slate-800/50">
+                            <td class="p-4 text-slate-400">2025-11-28</td>
+                            <td class="p-4 font-sans font-semibold text-white">Moore, Tim</td>
+                            <td class="p-4"><span class="text-xs bg-slate-800 px-2 py-1 rounded border border-slate-700">House</span></td>
+                            <td class="p-4"><span class="text-yellow-400 font-bold">CBRL</span></td>
+                            <td class="p-4 text-slate-300">Cracker Barrel Old Country Store</td>
+                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-xs font-bold sell-badge">Sale</span></td>
+                            <td class="p-4 text-right font-sans">$15k - $50k</td>
+                            <td class="p-4 text-center"><a href="https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2025/20033564.pdf" target="_blank" class="pdf-link text-slate-500 transition-all"><i class="fas fa-file-pdf"></i></a></td>
+                        </tr>
+
+                         <tr class="border-b border-slate-800/50">
+                            <td class="p-4 text-slate-400">2025-11-25</td>
+                            <td class="p-4 font-sans font-semibold text-white">Bresnahan, Rob</td>
+                            <td class="p-4"><span class="text-xs bg-slate-800 px-2 py-1 rounded border border-slate-700">House</span></td>
+                            <td class="p-4"><span class="text-blue-300 text-xs">BOND</span></td>
+                            <td class="p-4 text-slate-300">Souderton, PA Municipal Bond</td>
+                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-xs font-bold sell-badge">Sale</span></td>
+                            <td class="p-4 text-right font-sans">$50k - $100k</td>
+                            <td class="p-4 text-center"><a href="https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2025/20033574.pdf" target="_blank" class="pdf-link text-slate-500 transition-all"><i class="fas fa-file-pdf"></i></a></td>
+                        </tr>
+
+                        <tr class="border-b border-slate-800/50">
+                            <td class="p-4 text-slate-400">2025-11-25</td>
+                            <td class="p-4 font-sans font-semibold text-white">McCormick, David H</td>
+                            <td class="p-4"><span class="text-xs bg-slate-800 px-2 py-1 rounded border border-slate-700 text-purple-300">Senate</span></td>
+                            <td class="p-4"><span class="text-yellow-400 font-bold">BITB</span></td>
+                            <td class="p-4 text-slate-300">Bitwise Bitcoin ETF</td>
+                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-xs font-bold buy-badge">Purchase</span></td>
+                            <td class="p-4 text-right font-sans">$15k - $50k</td>
+                            <td class="p-4 text-center"><a href="https://efdsearch.senate.gov/search/view/ptr/5d118fc0-14f4-426a-8d38-05056392b4d8/" target="_blank" class="pdf-link text-slate-500 transition-all"><i class="fas fa-file-pdf"></i></a></td>
+                        </tr>
+
+                        <tr class="border-b border-slate-800/50">
+                            <td class="p-4 text-slate-400">2025-11-24</td>
+                            <td class="p-4 font-sans font-semibold text-white">Dingell, Debbie</td>
+                            <td class="p-4"><span class="text-xs bg-slate-800 px-2 py-1 rounded border border-slate-700">House</span></td>
+                            <td class="p-4"><span class="text-yellow-400 font-bold">GOOG</span></td>
+                            <td class="p-4 text-slate-300">Alphabet Inc. - Class C</td>
+                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-xs font-bold sell-badge">Sale</span></td>
+                            <td class="p-4 text-right font-sans">$15k - $50k</td>
+                            <td class="p-4 text-center"><a href="https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2025/20029105.pdf" target="_blank" class="pdf-link text-slate-500 transition-all"><i class="fas fa-file-pdf"></i></a></td>
+                        </tr>
+
+                         <tr class="border-b border-slate-800/50">
+                            <td class="p-4 text-slate-400">2025-11-24</td>
+                            <td class="p-4 font-sans font-semibold text-white">Dingell, Debbie</td>
+                            <td class="p-4"><span class="text-xs bg-slate-800 px-2 py-1 rounded border border-slate-700">House</span></td>
+                            <td class="p-4"><span class="text-yellow-400 font-bold">AAPL</span></td>
+                            <td class="p-4 text-slate-300">Apple Inc. - Spouse Trust</td>
+                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-xs font-bold sell-badge">Sale</span></td>
+                            <td class="p-4 text-right font-sans">$50k - $100k</td>
+                            <td class="p-4 text-center"><a href="https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2025/20029105.pdf" target="_blank" class="pdf-link text-slate-500 transition-all"><i class="fas fa-file-pdf"></i></a></td>
+                        </tr>
+
+                        <tr class="border-b border-slate-800/50">
+                            <td class="p-4 text-slate-400">2025-11-24</td>
+                            <td class="p-4 font-sans font-semibold text-white">McCormick, David H</td>
+                            <td class="p-4"><span class="text-xs bg-slate-800 px-2 py-1 rounded border border-slate-700 text-purple-300">Senate</span></td>
+                            <td class="p-4"><span class="text-yellow-400 font-bold">BITB</span></td>
+                            <td class="p-4 text-slate-300">Bitwise Bitcoin ETF</td>
+                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-xs font-bold buy-badge">Purchase</span></td>
+                            <td class="p-4 text-right font-sans">$50k - $100k</td>
+                            <td class="p-4 text-center"><a href="https://efdsearch.senate.gov/search/view/ptr/5d118fc0-14f4-426a-8d38-05056392b4d8/" target="_blank" class="pdf-link text-slate-500 transition-all"><i class="fas fa-file-pdf"></i></a></td>
+                        </tr>
+
+                        <tr class="border-b border-slate-800/50">
+                            <td class="p-4 text-slate-400">2025-11-21</td>
+                            <td class="p-4 font-sans font-semibold text-white">Smith, Tina</td>
+                            <td class="p-4"><span class="text-xs bg-slate-800 px-2 py-1 rounded border border-slate-700 text-purple-300">Senate</span></td>
+                            <td class="p-4"><span class="text-yellow-400 font-bold">HBAN</span></td>
+                            <td class="p-4 text-slate-300">Huntington Bancshares Inc.</td>
+                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-xs font-bold sell-badge">Sale</span></td>
+                            <td class="p-4 text-right font-sans">$100k - $250k</td>
+                            <td class="p-4 text-center"><a href="https://efdsearch.senate.gov/search/view/ptr/82093483-e915-4a5d-bb4b-e40431d79f99/" target="_blank" class="pdf-link text-slate-500 transition-all"><i class="fas fa-file-pdf"></i></a></td>
+                        </tr>
+
+                        <tr class="bg-slate-800/30">
+                            <td colspan="8" class="p-4 text-center text-slate-500 italic border-t border-slate-800">
+                                ... 13,092 more records available in full download ...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <figure class="max-w-6xl mx-auto std-image-container mt-16">
+            <img src="assets/excel_preview.png" alt="Excel Data Preview" class="w-full h-auto">
+            <figcaption class="std-image-caption">
+                <i class="fas fa-table mr-2 text-blue-500"></i> FIGURE 1: FULL DATASET VIEW IN EXCEL (ALL 17 COLUMNS)
+            </figcaption>
+        </figure>
+        
+        <div class="mt-12 text-center">
+            <p class="text-slate-400 mb-6">Access the complete history from 2015 to 2026.</p>
+            <a href="YOUR_LEMON_SQUEEZY_LINK" class="inline-block px-10 py-4 bg-blue-600 hover:bg-blue-500 rounded-xl font-bold text-white transition-all shadow-xl hover:scale-105">
+                <i class="fas fa-download mr-2"></i> Download Full Archive
+            </a>
+            <div class="mt-6 text-xs text-slate-600">
+                Data provided as-is from House & Senate filings. Verified for structural integrity.
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

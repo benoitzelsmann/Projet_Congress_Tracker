@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Capitol Quant | The Congressional Trading Database</title>
+    <meta name="description" content="Download 13,107 validated congressional stock trades (2015-2026). Cleaned, structured JSON/CSV/Parquet data for backtesting and insider trading analysis.">
+    <meta property="og:title" content="Capitol Quant | Congressional Trading Data">
+    <meta property="og:description" content="Stop digging through PDFs. Get 10 years of clean congressional trading history.">
+    <meta property="og:image" content="assets/excel_preview.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" href="assets/logo_store.png" type="image/png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        body { background-color: #0b1121; color: #f8fafc; font-family: 'Inter', sans-serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        /* Correction ici : ajout de background-clip standard */
+        .gradient-text { 
+            background: linear-gradient(90deg, #60a5fa, #c084fc); 
+            -webkit-background-clip: text; 
+            background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+        
+        /* Card Styling */
+        .data-card { 
+            background: rgba(30, 41, 59, 0.4); 
+            border: 1px solid rgba(51, 65, 85, 0.5); 
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease; 
+        }
+        .data-card:hover { 
+            transform: translateY(-4px); 
+            border-color: #60a5fa; 
+            box-shadow: 0 10px 40px -10px rgba(96, 165, 250, 0.2); 
+        }
+        
+        /* Professional Image Container */
+        .std-image-container {
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid rgba(51, 65, 85, 0.6);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            background-color: #1e293b;
+            transition: border-color 0.3s ease;
+        }
+        .std-image-container:hover {
+            border-color: #60a5fa;
+        }
+        .std-image-caption {
+            background-color: #0f172a;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            padding: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            border-top: 1px solid rgba(51, 65, 85, 0.6);
+            letter-spacing: 0.05em;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(to bottom right, #2563eb, #1d4ed8);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+        }
+        .btn-primary:hover {
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-blue-600 selection:text-white">
+
+    <nav class="fixed w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <img src="assets/logo_store.png" alt="Capitol Quant Logo" class="h-8 w-auto opacity-90">
+                <span class="font-bold text-lg tracking-tight text-slate-100 hidden sm:block">Capitol Quant</span>
+            </div>
+            <a href="YOUR_LEMON_SQUEEZY_LINK" class="btn-primary text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-2">
+                <span>Download Archive ($2)</span> <i class="fas fa-download text-xs"></i>
+            </a>
+        </div>
+    </nav>
+
+    <header class="relative pt-36 pb-12 overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] -z-10 opacity-60"></div>
+
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            
+            <div class="mb-12 flex justify-center">
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-[2.6rem] blur opacity-25 group-hover:opacity-50 transition duration-500"></div>
+                    <img src="assets/logo.png" alt="Capitol Quant Product Icon" class="relative h-80 w-auto shadow-2xl rounded-[2.5rem] border border-slate-700/50 hover:scale-[1.02] transition-transform duration-500">
+                </div>
+            </div>
+
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 mb-8 text-xs font-semibold tracking-wide text-blue-300 uppercase bg-slate-800/50 rounded-full border border-blue-500/30 backdrop-blur-sm">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                </span>
+                Static Dataset • v1.0 Release (Feb 2026)
+            </div>
+
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-8 leading-tight tracking-tight">
+                Bridge the Gap Between <br>
+                <span class="gradient-text">Capitol Hill & Wall Street</span>
+            </h1>
+
+            <p class="text-xl text-slate-400 max-w-3xl mx-auto mb-12 leading-relaxed">
+                Stop digging through PDF filings. Access <strong>13,107</strong> validated, high-value transactions (> $15k) from 2015 to 2026. 
+                The only dataset that transforms messy <strong>GovTrades</strong> disclosures into machine-readable financial intelligence.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-5 mb-20">
+                <a href="YOUR_LEMON_SQUEEZY_LINK" class="btn-primary text-white px-8 py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-3">
+                    <i class="fas fa-file-archive"></i> Get Archive ($2)
+                </a>
+                <a href="sample.html" target="_blank" class="px-8 py-4 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-3">
+                    <i class="fas fa-table text-slate-400"></i> View Data Sample
+                </a>
+            </div>
+
+            <div class="max-w-3xl mx-auto bg-slate-900/50 border border-slate-800 p-8 rounded-2xl mb-0 text-left flex gap-5">
+                <div class="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center shrink-0 border border-blue-500/20">
+                    <i class="fas fa-bullseye text-blue-400"></i>
+                </div>
+                <div>
+                    <h3 class="text-slate-200 font-bold text-base mb-2">The Market Inefficiency</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Members of Congress consistently outperform the S&P 500. Yet, their trading data is buried in thousands of unreadable PDFs, making it impossible for retail investors to track in real-time. 
+                        <strong>We fixed that.</strong> This archive democratizes 10 years of insider history.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="max-w-7xl mx-auto px-6 py-24">
+        <h2 class="text-3xl font-bold text-center mb-16 text-slate-100">Unlock 3 Levels of Analysis</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="data-card p-8 rounded-2xl">
+                <div class="w-12 h-12 bg-purple-500/10 rounded-lg flex items-center justify-center mb-6 border border-purple-500/20"><i class="fas fa-user-secret text-purple-400 text-xl"></i></div>
+                <h3 class="text-xl font-bold mb-3">Insider Trading Patterns</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">Identify suspicious timing. Which politicians bought defense stocks right before a war vote? Who sold tech before antitrust hearings?</p>
+            </div>
+            <div class="data-card p-8 rounded-2xl">
+                <div class="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center mb-6 border border-blue-500/20"><i class="fas fa-chart-line text-blue-400 text-xl"></i></div>
+                <h3 class="text-xl font-bold mb-3">Quantitative Backtesting</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">Don't guess—test. Simulate trading strategies based on specific politicians' history. <em>"What if I copied Pelosi's trades with a 30-day lag?"</em></p>
+            </div>
+            <div class="data-card p-8 rounded-2xl">
+                <div class="w-12 h-12 bg-emerald-500/10 rounded-lg flex items-center justify-center mb-6 border border-emerald-500/20"><i class="fas fa-check-double text-emerald-400 text-xl"></i></div>
+                <h3 class="text-xl font-bold mb-3">Source Verification</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">Every data point is linked to the original PDF. Verify the truth yourself. Includes stock ticker recovery for accurate mapping.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-slate-900/30 py-24 border-y border-slate-800/50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="grid grid-cols-2 gap-5">
+                    <div class="data-card p-6 rounded-2xl text-center">
+                        <div class="text-4xl font-extrabold text-blue-400 mb-2">13,107</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase tracking-wider">Total Records</div>
+                    </div>
+                    <div class="data-card p-6 rounded-2xl text-center">
+                        <div class="text-4xl font-extrabold text-emerald-400 mb-2">11 Yrs</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase tracking-wider">History (2015-2026)</div>
+                    </div>
+                    <div class="data-card p-6 rounded-2xl text-center">
+                        <div class="text-4xl font-extrabold text-purple-400 mb-2">3</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase tracking-wider">File Formats</div>
+                    </div>
+                    <div class="data-card p-6 rounded-2xl text-center">
+                        <div class="text-4xl font-extrabold text-white mb-2">28 MB</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase tracking-wider">Optimized Size</div>
+                    </div>
+                </div>
+                
+                <figure class="std-image-container">
+                    <img src="assets/manifest.png" alt="Official Data Manifest" class="w-full">
+                    <figcaption class="std-image-caption">
+                        <i class="fas fa-terminal mr-2 text-purple-400"></i> FIGURE 1: DATASET INTEGRITY MANIFEST
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-6 py-24">
+        <div class="grid lg:grid-cols-2 gap-20">
+            
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="p-3 bg-blue-500/10 rounded-lg text-blue-400"><i class="fas fa-code text-2xl"></i></div>
+                    <h3 class="text-2xl font-bold">Structured Intelligence</h3>
+                </div>
+                
+                <figure class="std-image-container mb-8">
+                    <img src="assets/json_sample.png" alt="JSON Example" class="w-full">
+                    <figcaption class="std-image-caption">
+                        <i class="fas fa-code mr-2 text-blue-400"></i> FIGURE 2: JSON DATA STRUCTURE
+                    </figcaption>
+                </figure>
+
+                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-700/50 mb-8">
+                    <h4 class="font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fas fa-cogs text-slate-400"></i> ETL Pipeline Logic
+                    </h4>
+                    <div class="space-y-4">
+                        <div class="flex gap-4">
+                            <div class="mt-1 w-6 h-6 bg-emerald-500/10 rounded flex items-center justify-center shrink-0 border border-emerald-500/20"><span class="text-emerald-500 font-bold text-xs">1</span></div>
+                            <div>
+                                <strong class="text-slate-200 text-sm block">Ingestion & OCR</strong>
+                                <span class="text-slate-400 text-xs leading-relaxed block mt-1">Ingests raw filings from House/Senate. Uses OCR to parse handwritten PDF forms.</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="mt-1 w-6 h-6 bg-blue-500/10 rounded flex items-center justify-center shrink-0 border border-blue-500/20"><span class="text-blue-500 font-bold text-xs">2</span></div>
+                            <div>
+                                <strong class="text-slate-200 text-sm block">Normalization</strong>
+                                <span class="text-slate-400 text-xs leading-relaxed block mt-1">Maps messy descriptions to Tickers (MSFT). Standardizes Asset Types (Stock, Option).</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-950 rounded-xl border border-slate-800 p-5 font-mono text-[10px] md:text-xs leading-relaxed shadow-inner">
+                    <div class="border-b border-slate-800 pb-3 mb-4 flex justify-between items-center">
+                        <span class="text-slate-400"><i class="fas fa-shield-alt mr-2"></i>DATA INTEGRITY LOG</span>
+                        <span class="text-emerald-400 bg-emerald-900/20 px-2 py-0.5 rounded border border-emerald-900">VALIDATED</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 text-slate-400">
+                        <div>
+                            <div class="text-slate-200 font-bold mb-1 opacity-70">[TX TYPE]</div>
+                            <div class="flex justify-between"><span>• Purchase</span> <span class="text-slate-500">6493 (49.54%)</span></div>
+                            <div class="flex justify-between"><span>• Sale</span> <span class="text-slate-500">6457 (49.26%)</span></div>
+
+                            <div class="text-slate-200 font-bold mt-4 mb-1 opacity-70">[OWNERSHIP]</div>
+                            <div class="flex justify-between"><span>• Self</span> <span class="text-slate-500">6441 (49.14%)</span></div>
+                            <div class="flex justify-between"><span>• Joint</span> <span class="text-slate-500">4192 (31.98%)</span></div>
+                            <div class="flex justify-between"><span>• Spouse</span> <span class="text-slate-500">2456 (18.74%)</span></div>
+                        </div>
+                        <div>
+                            <div class="text-slate-200 font-bold mb-1 opacity-70">[ASSETS]</div>
+                            <div class="flex justify-between"><span>• Stock (ST)</span> <span class="text-slate-500">7639</span></div>
+                            <div class="flex justify-between"><span>• Other (OT)</span> <span class="text-slate-500">1012</span></div>
+                            <div class="flex justify-between"><span>• Gov (GS)</span> <span class="text-slate-500">998</span></div>
+
+                            <div class="text-slate-200 font-bold mt-4 mb-1 opacity-70">[RANGE]</div>
+                            <div class="flex justify-between"><span>• $15k-50k</span> <span class="text-slate-500">59.40%</span></div>
+                            <div class="flex justify-between"><span>• $50k-100k</span> <span class="text-slate-500">17.56%</span></div>
+                            <div class="flex justify-between"><span>• > $500k</span> <span class="text-slate-500">4.18%</span></div>
+                        </div>
+                    </div>
+                    <div class="border-t border-slate-800 mt-4 pt-2 text-center text-slate-600 italic">// END OF REPORT //</div>
+                </div>
+            </div>
+
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="p-3 bg-purple-500/10 rounded-lg text-purple-400"><i class="fas fa-database text-2xl"></i></div>
+                    <h3 class="text-2xl font-bold">Relational Architecture</h3>
+                </div>
+                
+                <figure class="std-image-container mb-8 max-w-sm mx-auto">
+                    <img src="assets/db_arch.png" alt="Database Schema Architecture" class="w-full">
+                    <figcaption class="std-image-caption">
+                        <i class="fas fa-project-diagram mr-2 text-purple-400"></i> FIGURE 3: ENTITY RELATIONSHIP
+                    </figcaption>
+                </figure>
+                
+                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-700/50 h-fit shadow-lg">
+                    <h4 class="font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fas fa-folder-open text-blue-400"></i> Why the 'politicians' folder?
+                    </h4>
+                    <div class="text-sm text-slate-400 space-y-3">
+                        <p>Instead of repeating "Nancy Pelosi" 1,000 times in the transaction log, we use a normalized structure:</p>
+                        <ul class="space-y-3 border-l-2 border-slate-700 pl-4">
+                            <li>
+                                <strong class="text-slate-200 block text-xs uppercase tracking-wide mb-1">1. The "Phonebook" (politicians.csv)</strong>
+                                Contains unique IDs, <span class="text-blue-300">Total Trade Volume</span>, and <span class="text-blue-300">Transaction Counts</span> for every legislator.
+                            </li>
+                            <li>
+                                <strong class="text-slate-200 block text-xs uppercase tracking-wide mb-1">2. Reporting Lag Calculation</strong>
+                                We calculate the exact delay (in days) between the <em>Trade Date</em> and <em>Publication Date</em>.
+                            </li>
+                        </ul>
+                        <div class="mt-4 pt-3 border-t border-slate-800 text-xs italic text-slate-500 flex items-center gap-2">
+                            <i class="fas fa-info-circle"></i>
+                            This metric identifies members who consistently delay disclosures vs. those who report instantly.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="border-t border-slate-800 bg-slate-950 pt-20 pb-10 text-sm">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <img src="assets/logo_store.png" class="h-6 opacity-80" alt="Logo">
+                        <span class="font-bold text-slate-200">Capitol Quant</span>
+                    </div>
+                    <p class="text-slate-500 leading-relaxed mb-4">
+                        Institutional-grade financial data for independent researchers and algorithmic traders.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="mailto:support@capitolquant.com" class="text-slate-400 hover:text-white transition flex items-center gap-2">
+                            <i class="fas fa-envelope"></i> Contact Support
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-200 mb-4">Product</h4>
+                    <ul class="space-y-2 text-slate-500">
+                        <li><a href="YOUR_LEMON_SQUEEZY_LINK" class="hover:text-blue-400 transition">Download Archive</a></li>
+                        <li><a href="sample.html" target="_blank" class="hover:text-blue-400 transition">View Sample</a></li>
+                        <li><span class="text-slate-700 cursor-not-allowed">API Access (Coming Soon)</span></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-200 mb-4">Legal</h4>
+                    <ul class="space-y-2 text-slate-500">
+                        <li><a href="terms.html" class="hover:text-blue-400 transition">Terms of Service</a></li>
+                        <li><a href="privacy.html" class="hover:text-blue-400 transition">Privacy Policy</a></li>
+                        <li><a href="refund.html" class="hover:text-blue-400 transition">Refund Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-span-1 md:col-span-1">
+                    <h4 class="font-bold text-slate-200 mb-4">Disclaimer</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Capitol Quant is a data provider. We are not a registered investment advisor. 
+                        The information provided is for educational and research purposes only and does not constitute financial advice. 
+                        Past performance of congressional trades is not indicative of future results.
+                    </p>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-600 text-xs">&copy; 2026 Capitol Quant. All rights reserved.</p>
+                <div class="flex gap-4 text-xs text-slate-600">
+                    <span>Made with <i class="fas fa-heart text-red-900"></i> for Quant Finance</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
