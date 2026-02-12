@@ -1,0 +1,13 @@
+# Allow all web crawlers and AI bots to index the site
+User-agent: *
+Allow: /
+
+# Specifically allow major AI crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+# Path to the sitemap
+Sitemap: https://www.capitolquant.com/sitemap.xml
